@@ -3,10 +3,11 @@ package c.sakshi.lab5;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -23,14 +24,12 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        String str;
 
         name = (TextView) findViewById(R.id.welcomeText);
         Intent intent = getIntent();
-        String str = intent.getStringExtra("message");
+        str = intent.getStringExtra("message");
         name.setText("Welcome " + str + "!");
-
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
     }
 
     @Override
@@ -43,6 +42,8 @@ public class Main2Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
+                SharedPreferences sharedPreferences = getSharedPreferences("c.sakshi.lab5", Context.MODE_PRIVATE);
+                sharedPreferences.edit().remove("username").apply();
                 goToMain();
                 return true;
 
